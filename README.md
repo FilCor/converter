@@ -16,7 +16,7 @@ ConverterApp è uno strumento Python basato su Tkinter per convertire e manipola
 Clona il repository e installa le dipendenze:
 
 ```bash
-git clone URL_DEL_TUO_REPOSITORY
+git clone https://github.com/FilCor/converter.git
 cd cartella_del_progetto
 pip install -r requirements.txt
 ```
