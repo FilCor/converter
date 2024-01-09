@@ -9,6 +9,7 @@ from functions.csv_to_json import csv_to_json
 from functions.merge_pdfs import merge_pdfs
 from functions.convert_pdf_to_text import convert_pdf_to_text
 from functions.extract_pages_from_pdf import extract_pages
+import webbrowser
 
 class ConverterApp:
     def __init__(self, root):
@@ -32,6 +33,7 @@ class ConverterApp:
         tabControl = ttk.Notebook(root)
 
         # Aggiungi ogni tab delle funzionalità
+        self.create_homepage_tab(tabControl)
         self.create_conversion_tab(tabControl, "EBook to Kindle", "Select EBook", self.convert_ebook)
         self.create_conversion_tab(tabControl, "CSV to Excel", "Select CSV", self.convert_csv_to_excel)
         self.create_conversion_tab(tabControl, "CSV to Json", "Select CSV", self.convert_csv_to_json)
@@ -40,6 +42,33 @@ class ConverterApp:
         self.create_pdf_extract_pages_tab(tabControl)  
 
         tabControl.pack(expand=1, fill="both")
+
+    def create_homepage_tab(self, tabControl):
+        tab = ttk.Frame(tabControl)
+        tabControl.add(tab, text='Homepage')
+        
+        # Aggiungi le informazioni
+        info_text = """
+        
+LinkedIn: https://www.linkedin.com/in/filippo-corsini-349b43125/
+Github: https://github.com/FilCor?tab=repositories"""
+        
+        info_label = tk.Label(tab, text="Made by Filippo Corsini", justify=tk.LEFT)
+        info_label.pack(pady=20)
+        
+        # Usa un Text widget per i link cliccabili
+        link_text_widget = tk.Text(tab, height=5, wrap="word")
+        link_text_widget.insert(tk.END, info_text)
+        link_text_widget.pack(pady=20)
+        link_text_widget.tag_add("LinkedIn", "3.10", "3.78")
+        link_text_widget.tag_add("Github", "4.8", "4.48")
+        link_text_widget.tag_config("LinkedIn", foreground="blue", underline=1)
+        link_text_widget.tag_config("Github", foreground="blue", underline=1)
+        link_text_widget.tag_bind("LinkedIn", "<Button-1>", lambda e: webbrowser.open_new("https://www.linkedin.com/in/filippo-corsini-349b43125/"))
+        link_text_widget.tag_bind("Github", "<Button-1>", lambda e: webbrowser.open_new("https://github.com/FilCor?tab=repositories"))
+        
+        # Disabilita il widget per evitare la modifica del testo ma mantenere la funzionalità del link
+        link_text_widget.config(state="disabled")
 
     def create_pdf_extract_pages_tab(self, tabControl):
         tab = ttk.Frame(tabControl)
